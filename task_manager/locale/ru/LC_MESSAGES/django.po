@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-02-07 19:48+0500\n"
+"POT-Creation-Date: 2024-02-19 20:38+0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20,34 +20,115 @@ msgstr ""
 "n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
 "(n%100>=11 && n%100<=14)? 2 : 3);\n"
 
-#: templates/index.html:10
+#: templates/index.html:9
 msgid "Hello from Hexlet!"
 msgstr "Привет от Хекслета!"
 
-#: templates/index.html:11
+#: templates/index.html:10
 msgid "Practical programming courses"
 msgstr "Практические курсы по программированию"
 
-#: templates/index.html:13
+#: templates/index.html:12
 msgid "Learn more"
 msgstr "Узнать больше"
 
-#: templates/layout.html:8
+#: templates/layout.html:7
 msgid "Task manager Hexlet"
-msgstr "Мененджер задач Hexlet"
+msgstr "Менеджер задач Hexlet"
 
-#: templates/navigation.html:4
-msgid "Task manager"
-msgstr "Мененджер задач"
-
-#: templates/navigation.html:9
-msgid "Users"
-msgstr "Пользователи"
-
-#: templates/navigation.html:15
+#: templates/login.html:5 templates/login.html:16 templates/navigation.html:17
 msgid "Sign in"
 msgstr "Вход"
 
-#: templates/navigation.html:19
+#: templates/login.html:9 templates/login.html:10
+#: templates/users/create.html:17 templates/users/create.html:18
+#: templates/users/index.html:10 templates/users/update.html:17
+#: templates/users/update.html:18
+#, fuzzy
+#| msgid "Users"
+msgid "Username"
+msgstr "Пользователи"
+
+#: templates/login.html:13 templates/login.html:14
+#: templates/users/create.html:22 templates/users/create.html:23
+#: templates/users/update.html:22 templates/users/update.html:23
+msgid "Password"
+msgstr ""
+
+#: templates/navigation.html:4
+msgid "Task manager"
+msgstr "Менеджер задач"
+
+#: templates/navigation.html:11 templates/users/index.html:5
+msgid "Users"
+msgstr "Пользователи"
+
+#: templates/navigation.html:21 templates/users/create.html:5
+#: templates/users/create.html:37
 msgid "Sign up"
 msgstr "Регистрация"
+
+#: templates/users/create.html:9 templates/users/create.html:10
+#: templates/users/update.html:9 templates/users/update.html:10
+msgid "First name"
+msgstr "Имя"
+
+#: templates/users/create.html:13 templates/users/create.html:14
+#: templates/users/update.html:13 templates/users/update.html:14
+msgid "Last name"
+msgstr "Фамилия"
+
+#: templates/users/create.html:19 templates/users/update.html:19
+msgid ""
+"Required field. No more than 150 characters. Only letters, numbers and "
+"symbols @/./+/-/_."
+msgstr "Обязательное поле. Не более 150 символов. Только буквы, цифры и символы @/./+/-/_."
+
+#: templates/users/create.html:27 templates/users/update.html:27
+msgid "Your password must contain at least 3 characters."
+msgstr "Ваш пароль должен содержать как минимум 3 символа."
+
+#: templates/users/create.html:33 templates/users/create.html:34
+#: templates/users/update.html:33 templates/users/update.html:34
+msgid "Сonfirm password"
+msgstr "Подтверждение пароля"
+
+#: templates/users/create.html:35 templates/users/update.html:35
+msgid "To confirm, please enter the password again."
+msgstr "Для подтверждения введите, пожалуйста, пароль ещё раз."
+
+#: templates/users/delete.html:5
+msgid "Deleting a user"
+msgstr "Удаление пользователя"
+
+#: templates/users/delete.html:6
+msgid "Are you sure you want to delete the user?"
+msgstr "Вы уверены, что хотите удалить пользователя?"
+
+#: templates/users/delete.html:9
+msgid "Yes, delete"
+msgstr "Да, удалить"
+
+#: templates/users/index.html:11
+msgid "Name"
+msgstr "Полное имя"
+
+#: templates/users/index.html:12
+msgid "Сreation date"
+msgstr "Дата создания"
+
+#: templates/users/index.html:23
+msgid "Edit"
+msgstr "Изменить"
+
+#: templates/users/index.html:25
+msgid "Delete"
+msgstr "Удалить"
+
+#: templates/users/update.html:5
+msgid "Change user"
+msgstr "Изменить пользователя"
+
+#: templates/users/update.html:37
+msgid "Change"
+msgstr "Изменить"
