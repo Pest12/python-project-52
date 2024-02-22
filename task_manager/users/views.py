@@ -78,7 +78,7 @@ class DeleteUser(NoAuthorizationMixin, NoPermissionMixin,
         user = self.request.user
         return user
 
-    def post(self,request, *args, **kwargs):
+    def post(self, request, *args, **kwargs):
         try:
             return super().post(request, *args, **kwargs)
         except ProtectedError:

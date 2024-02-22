@@ -10,9 +10,29 @@
           <li class="nav-item">
             <a class="nav-link" href="{% url 'index_users' %}">{% translate "Users" %}</a>
           </li>
+          
+          {% if user.is_authenticated %}
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'index_statuses' %}">{% translate "Statuses" %}</a>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link" href="/">{% translate "Tags" %}</a>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link" href="/">{% translate "Tasks" %}</a>
+          </li>
+          {% endif %}
         </ul>
 
         <ul class="navbar-nav">
+          {% if user.is_authenticated %}
+          <form action="{% url 'logout' %}" method="post">
+            {% csrf_token %}
+            <input class="btn nav-link" type="submit" value="{% translate 'Sign out' %}">
+          </form>
+          {% else %}
           <li class="nav-item">
             <a class="nav-link" href="{% url 'login' %}">{% translate "Sign in" %}</a>
           </li>
@@ -20,6 +40,7 @@
           <li class="nav-item">
             <a class="nav-link" href="{% url 'create_user' %}">{% translate "Sign up" %}</a>
           </li>
+          {% endif %}
         </ul>
     </div>
 </nav>
