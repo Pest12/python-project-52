@@ -10,6 +10,7 @@
   <body class="d-flex flex-column min-vh-100">
     {% include "./navigation.html" %}
       <div class="container wrapper flex-grow-1">
+        {% include "./messages.html" %}
         {% block content %}
         {% endblock %}
       </div>

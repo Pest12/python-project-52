@@ -3,7 +3,7 @@ from django.urls import reverse
 from django.contrib.auth import get_user_model
 
 
-class CRUD_Test(TestCase):
+class CRUD_User_Test(TestCase):
 
     @classmethod
     def setUpTestData(cls):
@@ -39,7 +39,7 @@ class CRUD_Test(TestCase):
                 'last_name': 'Lugov',
                 'username': 'Pest',
                 'password1': 'Kostya123',
-                'password2': 'kostya123'
+                'password2': 'kostya1'
             }
         )
         self.assertEqual(response.status_code, 200)
@@ -85,7 +85,7 @@ class CRUD_Test(TestCase):
         self.assertRedirects(response, reverse('index_users'), 302, 200)
 
         user_id = get_user_model().objects.get(username='Kostya11').id
-        response = self.client.get(f'/users/{user_id}/update/')
+        response = self.client.get(f'/users/{user_id}/delete/')
         self.assertEqual(response.status_code, 200)
 
         response_redirect = self.client.post(f'/users/{user_id}/delete/')

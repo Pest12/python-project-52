@@ -13,7 +13,7 @@ from task_manager.mixins import NoAuthorizationMixin, NoPermissionMixin
 
 MESS_PERMISSION = _("You do not have permission to modify another user.")
 
-class IndexView(ListView): 
+class IndexView(ListView):
     model = get_user_model()
     template_name = 'users/index.html'
     context_object_name = 'users'
@@ -30,7 +30,7 @@ class CreateUser(SuccessMessageMixin, CreateView):
     success_message = _('You have successfully registred')
 
 
-class UpdateUser(NoAuthorizationMixin, NoPermissionMixin, 
+class UpdateUser(NoAuthorizationMixin, NoPermissionMixin,
                  SuccessMessageMixin, UpdateView):
     form_class = CreateUserForm
     template_name = 'users/update.html'
@@ -58,7 +58,7 @@ class UpdateUser(NoAuthorizationMixin, NoPermissionMixin,
         return super().form_valid(form)
 
 
-class DeleteUser(NoAuthorizationMixin, NoPermissionMixin, 
+class DeleteUser(NoAuthorizationMixin, NoPermissionMixin,
                  SuccessMessageMixin, DeleteView):
     template_name = 'users/delete.html'
     success_url = reverse_lazy('index_users')
