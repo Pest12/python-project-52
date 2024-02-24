@@ -1,0 +1,32 @@
+{% extends 'layout.html' %}
+{% load django_bootstrap5 i18n %}
+
+{% block content %}
+<h1 class="my-4"> {% translate "Labels" %}</h1>
+<a class="btn btn-primary mb-3" href="{% url 'create_label' %}">{% translate "Create label" %}</a>
+<table class="table table-striped">
+    <thead>
+        <tr>
+          <th>ID</th>
+          <th>{% translate "Name" %}</th>
+          <th>{% translate "Сreation date" %}</th>
+          <th></th>
+        </tr>
+    </thead>
+
+    <tbody>
+      {% for label in labels %}
+        <tr>
+          <td>{{ label.id }}</td>
+          <td>{{ label.name }}</td>
+          <td>{{ label.timestamp }}</td>
+          <td>
+            <a href="{% url 'update_label' label.id %}">{% translate "Change" %}</a>
+            <br>
+            <a href="{% url 'delete_label' label.id %}">{% translate "Delete" %}</a>
+          </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
