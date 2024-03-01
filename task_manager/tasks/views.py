@@ -10,7 +10,8 @@ from .forms import CreateTasksForm
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.mixins import UserPassesTestMixin
 from django.views.generic.detail import DetailView
-
+from .filters import TasksFilter
+from django_filters.views import FilterView
 
 
 class IsAuthorTask(UserPassesTestMixin):
@@ -22,8 +23,8 @@ class IsAuthorTask(UserPassesTestMixin):
         return self.request.user == task.author
 
 
-class IndexView(LoginRequiredMixin, ListView): 
-    model = Tasks
+class IndexView(LoginRequiredMixin, FilterView): 
+    filterset_class = TasksFilter
     template_name = 'tasks/index.html'
     context_object_name = 'tasks'
 

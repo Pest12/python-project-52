@@ -6,6 +6,16 @@
 <a class="btn btn-primary mb-3" href="{% url 'create_task' %}">{% translate "Create task" %}</a>
 
 
+<div class="card mb-3">
+  <div class="card-body bg-light">
+      <form class="form-inline center mb-3" action="{% url 'index_tasks' %}">
+          {{ filter.form.as_p }}
+          <input class="btn btn-primary" type="submit" value="{% translate 'Show' %}">
+      </form>
+  </div>
+</div>
+
+
 <table class="table table-striped">
     <thead>
         <tr>
@@ -20,7 +30,7 @@
     </thead>
 
     <tbody>
-      {% for task in tasks %}
+      {% for task in filter.qs %}
         <tr>
           <td>{{ task.id }}</td>
           <td><a href="{% url 'show_task' task.id %}">{{ task.name }}</a></td>
