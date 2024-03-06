@@ -21,3 +21,6 @@ test:
 
 test-coverage:
 	poetry run coverage xml	
+
+show-test-coverage:
+	poetry run coverage report

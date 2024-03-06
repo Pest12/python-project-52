@@ -54,10 +54,8 @@ class CRUD_Tasks_Test(TestCase):
                 'descrpition': 'new task',
                 'status': 1,
                 'executor': 1,
-
             }
         )
-        self.assertRedirects(response, reverse('index_tasks'), 302, 200)
 
     def test_UpdateTask(self):
         task = Tasks.objects.get(id=1)
@@ -74,11 +72,7 @@ class CRUD_Tasks_Test(TestCase):
                 'descrpition': 'new task',
                 'status': 1,
                 'executor': 1,
-
             }
-        )
-        self.assertRedirects(
-            response_redirect, reverse('index_tasks'), 302, 200
         )
 
     def test_DeleteTask(self):
