@@ -30,7 +30,7 @@ DATABASE_URL = os.getenv('DATABASE_URL')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.getenv('DEBUG', False)
 
-ALLOWED_HOSTS = ['127.0.0.1', 'https://task-manager-app-hudw.onrender.com/', 'webserver']
+ALLOWED_HOSTS = ['127.0.0.1', 'webserver']
 
 
 # Application definition

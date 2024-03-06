@@ -18,14 +18,14 @@ class CRUD_Tasks_Test(TestCase):
         )
         status1 = Statuses.objects.create(name='New')
         status2 = Statuses.objects.create(name='Completed')
-        task1 = Tasks.objects.create(
+        Tasks.objects.create(
             name='task1_name',
             description='description',
             executor=cls.user1,
             status=status1,
             author=cls.user1,
         )
-        task2 = Tasks.objects.create(
+        Tasks.objects.create(
             name='task2_name',
             description='description',
             executor=cls.user1,
@@ -33,12 +33,10 @@ class CRUD_Tasks_Test(TestCase):
             author=cls.user1,
         )
 
-
     def test_task_index(self):
         self.client.login(username='Kostya11', password='Kostya')
         response = self.client.get(reverse('index_tasks'))
         self.assertEqual(response.status_code, 200)
-
 
     def test_CreateTask(self):
         response = self.client.get(reverse('create_task'))
@@ -50,18 +48,16 @@ class CRUD_Tasks_Test(TestCase):
         self.assertTemplateUsed(response, template_name='tasks/create.html')
 
         response = self.client.post(
-            reverse('create_task'), 
+            reverse('create_task'),
             {
                 'name': 'first task',
                 'descrpition': 'new task',
                 'status': 1,
-                'author': 1,
                 'executor': 1,
 
             }
         )
         self.assertRedirects(response, reverse('index_tasks'), 302, 200)
-
 
     def test_UpdateTask(self):
         task = Tasks.objects.get(id=1)
@@ -77,14 +73,14 @@ class CRUD_Tasks_Test(TestCase):
                 'name': 'changed task',
                 'descrpition': 'new task',
                 'status': 1,
-                'author': 1,
                 'executor': 1,
 
             }
         )
-        self.assertRedirects(response_redirect, reverse('index_tasks'), 302, 200)
+        self.assertRedirects(
+            response_redirect, reverse('index_tasks'), 302, 200
+        )
 
-    
     def test_DeleteTask(self):
         task = Tasks.objects.get(id=2)
         response = self.client.get(f'/tasks/{task.id}/delete/')
@@ -95,5 +91,6 @@ class CRUD_Tasks_Test(TestCase):
         self.assertEqual(response.status_code, 200)
 
         response_redirect = self.client.post(f'/tasks/{task.id}/delete/')
-        self.assertRedirects(response_redirect, reverse('index_tasks'), 302, 200)
-
+        self.assertRedirects(
+            response_redirect, reverse('index_tasks'), 302, 200
+        )

@@ -18,12 +18,10 @@ class CRUD_Status_Test(TestCase):
         Statuses.objects.create(name='New')
         Statuses.objects.create(name='Completed')
 
-
     def test_status_index(self):
         self.client.login(username='Kostya11', password='Kostya')
         response = self.client.get(reverse('index_statuses'))
         self.assertEqual(response.status_code, 200)
-
 
     def test_CreateStatus(self):
         response = self.client.get(reverse('create_status'))
@@ -35,13 +33,12 @@ class CRUD_Status_Test(TestCase):
         self.assertTemplateUsed(response, template_name='statuses/create.html')
 
         response = self.client.post(
-            reverse('create_status'), 
+            reverse('create_status'),
             {
                 'name': 'status',
             }
         )
         self.assertRedirects(response, reverse('index_statuses'), 302, 200)
-
 
     def test_UpdateStatus(self):
         status = Statuses.objects.get(id=1)
@@ -54,12 +51,13 @@ class CRUD_Status_Test(TestCase):
         response_redirect = self.client.post(
             f'/statuses/{status.id}/update/',
             {
-                'name':'updated status',
+                'name': 'updated status',
             }
         )
-        self.assertRedirects(response_redirect, reverse('index_statuses'), 302, 200)
+        self.assertRedirects(
+            response_redirect, reverse('index_statuses'), 302, 200
+        )
 
-    
     def test_DeleteStatus(self):
         status = Statuses.objects.get(id=2)
         response = self.client.get(f'/statuses/{status.id}/delete/')
@@ -70,5 +68,6 @@ class CRUD_Status_Test(TestCase):
         self.assertEqual(response.status_code, 200)
 
         response_redirect = self.client.post(f'/statuses/{status.id}/delete/')
-        self.assertRedirects(response_redirect, reverse('index_statuses'), 302, 200)
-
+        self.assertRedirects(
+            response_redirect, reverse('index_statuses'), 302, 200
+        )

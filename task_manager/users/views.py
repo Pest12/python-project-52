@@ -13,6 +13,7 @@ from task_manager.mixins import NoAuthorizationMixin, NoPermissionMixin
 
 MESS_PERMISSION = _("You do not have permission to modify another user.")
 
+
 class IndexView(ListView):
     model = get_user_model()
     template_name = 'users/index.html'
@@ -22,6 +23,7 @@ class IndexView(ListView):
         context = super().get_context_data(**kwargs)
         context['messages'] = messages.get_messages(self.request)
         return context
+
 
 class CreateUser(SuccessMessageMixin, CreateView):
     form_class = CreateUserForm

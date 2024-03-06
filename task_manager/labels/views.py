@@ -11,7 +11,7 @@ from .models import Labels
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 
-class IndexView(LoginRequiredMixin, ListView): 
+class IndexView(LoginRequiredMixin, ListView):
     model = Labels
     template_name = 'labels/index.html'
     context_object_name = 'labels'
@@ -27,7 +27,6 @@ class CreateLabel(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     template_name = 'labels/create.html'
     success_url = reverse_lazy('index_labels')
     success_message = _('Label successfully created')
-
 
 
 class UpdateLabel(LoginRequiredMixin, SuccessMessageMixin, UpdateView):

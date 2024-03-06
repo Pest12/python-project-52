@@ -1,6 +1,3 @@
-from typing import Any
-from django.http.request import HttpRequest as HttpRequest
-from django.http.response import HttpResponse as HttpResponse
 from django.shortcuts import render
 from django.views import View
 from django.utils.translation import gettext_lazy as _
@@ -18,7 +15,7 @@ class IndexView(View):
         return render(request, 'index.html', context={
             'messages': message,
         })
-    
+
 
 class LoginUser(SuccessMessageMixin, LoginView):
     form_class = LoginUserForm

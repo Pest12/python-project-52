@@ -31,7 +31,6 @@ class TasksFilter(django_filters.FilterSet):
         widget=forms.CheckboxInput(),
     )
 
-
     def filter_user_tasks(self, queryset, name, value):
         if value:
             user_id = self.request.user.id

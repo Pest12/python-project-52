@@ -1,8 +1,6 @@
 from django.contrib import messages
-from django.db.models.deletion import ProtectedError
 from django.contrib.messages.views import SuccessMessageMixin
 from django.views.generic import CreateView, UpdateView, DeleteView
-from django.views.generic.list import ListView
 from django.utils.translation import gettext_lazy as _
 from django.urls import reverse_lazy
 from .models import Tasks
@@ -23,7 +21,7 @@ class IsAuthorTask(UserPassesTestMixin):
         return self.request.user == task.author
 
 
-class IndexView(LoginRequiredMixin, FilterView): 
+class IndexView(LoginRequiredMixin, FilterView):
     filterset_class = TasksFilter
     template_name = 'tasks/index.html'
     context_object_name = 'tasks'
@@ -55,7 +53,10 @@ class UpdateTask(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     success_message = _('Task successfully changed')
 
 
-class DeleteTask(LoginRequiredMixin, SuccessMessageMixin, DeleteView, IsAuthorTask):
+class DeleteTask(LoginRequiredMixin,
+                 SuccessMessageMixin,
+                 DeleteView,
+                 IsAuthorTask):
     model = Tasks
     template_name = 'tasks/delete.html'
     success_url = reverse_lazy('index_tasks')

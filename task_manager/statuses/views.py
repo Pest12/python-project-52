@@ -11,7 +11,7 @@ from .models import Statuses
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 
-class IndexView(LoginRequiredMixin, ListView): 
+class IndexView(LoginRequiredMixin, ListView):
     model = Statuses
     template_name = 'statuses/index.html'
     context_object_name = 'statuses'
@@ -27,7 +27,6 @@ class CreateStatus(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     template_name = 'statuses/create.html'
     success_url = reverse_lazy('index_statuses')
     success_message = _('Status successfully created')
-
 
 
 class UpdateStatus(LoginRequiredMixin, SuccessMessageMixin, UpdateView):

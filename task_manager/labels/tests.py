@@ -18,12 +18,10 @@ class CRUD_Labels_Test(TestCase):
         Labels.objects.create(name='Label1')
         Labels.objects.create(name='Label2')
 
-
     def test_label_index(self):
         self.client.login(username='Kostya11', password='Kostya')
         response = self.client.get(reverse('index_labels'))
         self.assertEqual(response.status_code, 200)
-
 
     def test_LabelsStatus(self):
         response = self.client.get(reverse('create_label'))
@@ -35,13 +33,12 @@ class CRUD_Labels_Test(TestCase):
         self.assertTemplateUsed(response, template_name='labels/create.html')
 
         response = self.client.post(
-            reverse('create_label'), 
+            reverse('create_label'),
             {
                 'name': 'new label',
             }
         )
         self.assertRedirects(response, reverse('index_labels'), 302, 200)
-
 
     def test_UpdateLabels(self):
         label = Labels.objects.get(id=1)
@@ -54,12 +51,13 @@ class CRUD_Labels_Test(TestCase):
         response_redirect = self.client.post(
             f'/labels/{label.id}/update/',
             {
-                'name':'updated label',
+                'name': 'updated label',
             }
         )
-        self.assertRedirects(response_redirect, reverse('index_labels'), 302, 200)
+        self.assertRedirects(
+            response_redirect, reverse('index_labels'), 302, 200
+        )
 
-    
     def test_DeleteLabel(self):
         label = Labels.objects.get(id=2)
         response = self.client.get(f'/labels/{label.id}/delete/')
@@ -70,5 +68,6 @@ class CRUD_Labels_Test(TestCase):
         self.assertEqual(response.status_code, 200)
 
         response_redirect = self.client.post(f'/labels/{label.id}/delete/')
-        self.assertRedirects(response_redirect, reverse('index_labels'), 302, 200)
-
+        self.assertRedirects(
+            response_redirect, reverse('index_labels'), 302, 200
+        )

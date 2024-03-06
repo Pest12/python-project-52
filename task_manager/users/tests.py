@@ -21,11 +21,9 @@ class CRUD_User_Test(TestCase):
             password='Dima11'
         )
 
-
     def test_user_index(self):
         response = self.client.get(reverse('index_users'))
         self.assertEqual(response.status_code, 200)
-
 
     def test_CreateUser(self):
         response = self.client.get(reverse('create_user'))
@@ -33,7 +31,7 @@ class CRUD_User_Test(TestCase):
         self.assertTemplateUsed(response, template_name='users/create.html')
 
         response = self.client.post(
-            reverse('create_user'), 
+            reverse('create_user'),
             {
                 'first_name': 'Kostya',
                 'last_name': 'Lugov',
@@ -45,7 +43,7 @@ class CRUD_User_Test(TestCase):
         self.assertEqual(response.status_code, 200)
 
         response = self.client.post(
-            reverse('create_user'), 
+            reverse('create_user'),
             {
                 'first_name': 'Kostya',
                 'last_name': 'Lugov',
@@ -55,7 +53,6 @@ class CRUD_User_Test(TestCase):
             }
         )
         self.assertRedirects(response, reverse('login'), 302, 200)
-
 
     def test_UpdateUser(self):
         self.client.login(username='Kostya11', password='Kostya')
@@ -70,14 +67,15 @@ class CRUD_User_Test(TestCase):
         response_redirect = self.client.post(
             f'/users/{user_id}/update/',
             {
-                'username':'Kostya1212',
+                'username': 'Kostya1212',
                 'password1': 'Kostya',
                 'password2': 'Kostya'
             }
         )
-        self.assertRedirects(response_redirect, reverse('index_users'), 302, 200)
+        self.assertRedirects(
+            response_redirect, reverse('index_users'), 302, 200
+        )
 
-    
     def test_DeleteUser(self):
         self.client.login(username='Kostya11', password='Kostya')
         user_id = get_user_model().objects.get(username='Dimon').id
@@ -89,4 +87,6 @@ class CRUD_User_Test(TestCase):
         self.assertEqual(response.status_code, 200)
 
         response_redirect = self.client.post(f'/users/{user_id}/delete/')
-        self.assertRedirects(response_redirect, reverse('index_users'), 302, 200)
+        self.assertRedirects(
+            response_redirect, reverse('index_users'), 302, 200
+        )
