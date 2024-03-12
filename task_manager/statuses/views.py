@@ -42,7 +42,8 @@ class DeleteStatus(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
     template_name = 'statuses/delete.html'
     success_url = reverse_lazy('index_statuses')
     success_message = _('The status has been successfully deleted')
-    error_del_message = _('It is not possible to delete the status because it is in use')
+    error_del_message = _('It is not possible to delete the '
+                          'status because it is in use')
 
     def post(self, request, *args, **kwargs):
         try:

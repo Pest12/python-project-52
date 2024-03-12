@@ -42,7 +42,8 @@ class DeleteLabel(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
     template_name = 'labels/delete.html'
     success_url = reverse_lazy('index_labels')
     success_message = _('The label was successfully deleted')
-    error_del_message = _('It is not possible to delete a label because it is being used')
+    error_del_message = _('It is not possible to delete a'
+                          'label because it is being used')
 
     def post(self, request, *args, **kwargs):
         try:

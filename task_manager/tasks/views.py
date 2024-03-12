@@ -1,4 +1,3 @@
-from django.shortcuts import redirect
 from django.contrib import messages
 from django.contrib.auth.mixins import UserPassesTestMixin
 from django.contrib.messages.views import SuccessMessageMixin
@@ -53,9 +52,9 @@ class UpdateTask(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     success_message = _('The task has been successfully changed')
 
 
-class DeleteTask(LoginRequiredMixin, 
-                 SuccessMessageMixin, 
-                 IsAuthorTask, 
+class DeleteTask(LoginRequiredMixin,
+                 SuccessMessageMixin,
+                 IsAuthorTask,
                  DeleteView):
     model = Tasks
     template_name = 'tasks/delete.html'

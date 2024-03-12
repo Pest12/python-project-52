@@ -28,15 +28,13 @@ class CreateUser(SuccessMessageMixin, CreateView):
 
 
 class UpdateUser(RulesMixin,
-                 SuccessMessageMixin, 
+                 SuccessMessageMixin,
                  UpdateView):
     model = Users
     form_class = CreateUserForm
     template_name = 'users/update.html'
     success_url = reverse_lazy('index_users')
     success_message = _('The user has been successfully changed')
-
-
 
 
 class DeleteUser(RulesMixin,
@@ -48,4 +46,3 @@ class DeleteUser(RulesMixin,
     protected_url = reverse_lazy('index_users')
     success_message = _('The user has been successfully deleted')
     protected_message = _("Cannot delete a user because it is in use")
-    
