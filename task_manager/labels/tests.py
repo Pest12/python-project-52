@@ -18,12 +18,12 @@ class CRUD_Labels_Test(TestCase):
         Labels.objects.create(name='Label1')
         Labels.objects.create(name='Label2')
 
-    def test_label_index(self):
+    def test_IndexLabels(self):
         self.client.login(username='Kostya11', password='Kostya')
         response = self.client.get(reverse('index_labels'))
         self.assertEqual(response.status_code, 200)
 
-    def test_LabelsStatus(self):
+    def test_CreateLabel(self):
         response = self.client.get(reverse('create_label'))
         self.assertEqual(response.status_code, 302)
 
@@ -40,7 +40,7 @@ class CRUD_Labels_Test(TestCase):
         )
         self.assertRedirects(response, reverse('index_labels'), 302, 200)
 
-    def test_UpdateLabels(self):
+    def test_UpdateLabel(self):
         label = Labels.objects.get(id=1)
         response = self.client.get(f'/labels/{label.id}/update/')
         self.assertEqual(response.status_code, 302)

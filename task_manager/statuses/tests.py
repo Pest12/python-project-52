@@ -18,7 +18,7 @@ class CRUD_Status_Test(TestCase):
         Statuses.objects.create(name='New')
         Statuses.objects.create(name='Completed')
 
-    def test_status_index(self):
+    def test_IndexStatuses(self):
         self.client.login(username='Kostya11', password='Kostya')
         response = self.client.get(reverse('index_statuses'))
         self.assertEqual(response.status_code, 200)

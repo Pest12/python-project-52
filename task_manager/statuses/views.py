@@ -26,7 +26,7 @@ class CreateStatus(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     form_class = CreateStatusForm
     template_name = 'statuses/create.html'
     success_url = reverse_lazy('index_statuses')
-    success_message = _('Status successfully created')
+    success_message = _('The status has been successfully created')
 
 
 class UpdateStatus(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
@@ -34,15 +34,15 @@ class UpdateStatus(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     form_class = CreateStatusForm
     template_name = 'statuses/update.html'
     success_url = reverse_lazy('index_statuses')
-    success_message = _('Status successfully changed')
+    success_message = _('The status has been successfully changed')
 
 
 class DeleteStatus(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
     model = Statuses
     template_name = 'statuses/delete.html'
     success_url = reverse_lazy('index_statuses')
-    success_message = _('Status deleted sucessfully')
-    error_del_message = _('The status cannot be deleted because it is in use')
+    success_message = _('The status has been successfully deleted')
+    error_del_message = _('It is not possible to delete the status because it is in use')
 
     def post(self, request, *args, **kwargs):
         try:

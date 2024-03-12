@@ -21,7 +21,7 @@ class CRUD_User_Test(TestCase):
             password='Dima11'
         )
 
-    def test_user_index(self):
+    def test_IndexUsers(self):
         response = self.client.get(reverse('index_users'))
         self.assertEqual(response.status_code, 200)
 

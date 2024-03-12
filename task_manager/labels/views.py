@@ -26,7 +26,7 @@ class CreateLabel(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     form_class = CreateLabelsForm
     template_name = 'labels/create.html'
     success_url = reverse_lazy('index_labels')
-    success_message = _('Label successfully created')
+    success_message = _('The label was created successfully')
 
 
 class UpdateLabel(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
@@ -34,15 +34,15 @@ class UpdateLabel(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     form_class = CreateLabelsForm
     template_name = 'labels/update.html'
     success_url = reverse_lazy('index_labels')
-    success_message = _('Label successfully changed')
+    success_message = _('The label has been successfully changed')
 
 
 class DeleteLabel(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
     model = Labels
     template_name = 'labels/delete.html'
     success_url = reverse_lazy('index_labels')
-    success_message = _('Label deleted sucessfully')
-    error_del_message = _('The label cannot be deleted because it is in use')
+    success_message = _('The label was successfully deleted')
+    error_del_message = _('It is not possible to delete a label because it is being used')
 
     def post(self, request, *args, **kwargs):
         try:

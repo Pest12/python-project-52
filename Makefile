@@ -20,7 +20,7 @@ test:
 	poetry run coverage run manage.py test
 
 test-coverage:
-	poetry run coverage xml	
+	poetry run coverage xml
 
 show-test-coverage:
 	poetry run coverage report

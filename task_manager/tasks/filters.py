@@ -10,17 +10,17 @@ from django.utils.translation import gettext as _
 class TasksFilter(django_filters.FilterSet):
     status = django_filters.ModelChoiceFilter(
         queryset=Statuses.objects.all(),
-        label=('Status'),
+        label=_('Status'),
         widget=forms.Select(attrs={'class': 'form-select'}),
     )
     executor = django_filters.ModelChoiceFilter(
         queryset=Users.objects.all(),
-        label=('Executor'),
+        label=_('Executor'),
         widget=forms.Select(attrs={'class': 'form-select'}),
     )
     labels = django_filters.ModelChoiceFilter(
         queryset=Labels.objects.all(),
-        label=('Label'),
+        label=_('Labels'),
         widget=forms.Select(attrs={'class': 'form-select'}),
     )
     user_tasks = django_filters.BooleanFilter(
