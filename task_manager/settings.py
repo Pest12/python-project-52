@@ -92,7 +92,6 @@ DATABASES = {
         # Feel free to alter this value to suit your needs.
         default=DATABASE_URL,
         conn_max_age=600,
-        conn_health_checks=True,
     )
 }
 
