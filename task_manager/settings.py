@@ -91,7 +91,7 @@ DATABASES = {
     'default': dj_database_url.config(
         default=os.getenv(
             'DATABASE_URL',
-            'postgresql://postgres:postgres@localhost:5432/postgres'
+            'postgres://postgres:kto_pizdel@localhost:5432/taskmanager'
         ),
         conn_max_age=600
     )
