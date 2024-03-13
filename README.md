@@ -30,6 +30,7 @@ To run the site locally on the development server, you need to:
 - Run `make makemigrations && make migrate`
 
 
+
 ### Start project
 
 To start the server in a production environment using Gunicorn, run the command:
