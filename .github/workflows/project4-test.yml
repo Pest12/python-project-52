@@ -10,10 +10,6 @@ jobs:
     strategy:
       matrix:
         python-version: ["3.10"]
-    
-    env:
-      DATABASE_URL: ${{ secrets.DATABASE_URL }}
-      SECRET_KEY: ${{ secrets.SECRET_KEY }}
 
     steps:
       - uses: actions/checkout@v3
