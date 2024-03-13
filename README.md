@@ -16,21 +16,29 @@ Task Manager is a task management system similar to http://www.redmine.org /. It
 ## Installation
 
 
-Clone the repository `git clone git@github.com:Pest12/python-project-52.git` and use this commands:
-
-```
-make build
-make start
-```
+Clone the repository `git clone git@github.com:Pest12/python-project-52.git` 
 
 
-##Link to Render.com: https://task-manager-app-hudw.onrender.com/
+Go to the project directory and install dependencies using Poetry:
 
-
-## Development server
+`cd python-project-52 && make install`
 
 
 To run the site locally on the development server, you need to:
 - Create a file `.env` based on `.env.sample` `cp .env.sample .env`
-- Fill `DATABASE_URL` and `SECRET_KEY` in .env
-- Run `make dev`
+- Fill `DATABASE_URL` and `SECRET_KEY` `DEBUG=True` in .env
+- Run `make makemigrations && make migrate`
+
+
+### Start project
+
+To start the server in a production environment using Gunicorn, run the command:
+
+`make start`
+
+Run the server locally in development mode with the debugger active:
+
+`make run-server`
+
+
+##Link to Render.com: https://task-manager-app-hudw.onrender.com/
