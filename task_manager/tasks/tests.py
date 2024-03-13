@@ -57,7 +57,9 @@ class CRUD_Tasks_Test(TestCase):
                 'executor': 1,
             }
         )
-        self.assertEqual(response.status_code, 200)
+        self.assertRedirects(
+            response, reverse('index_tasks'), 302, 200
+        )
 
     def test_UpdateTask(self):
         task = Tasks.objects.get(id=1)
@@ -76,7 +78,9 @@ class CRUD_Tasks_Test(TestCase):
                 'executor': 1,
             }
         )
-        self.assertEqual(response_redirect.status_code, 200)
+        self.assertRedirects(
+            response_redirect, reverse('index_tasks'), 302, 200
+        )
 
     def test_DeleteTask(self):
         task = Tasks.objects.get(id=2)
