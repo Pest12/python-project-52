@@ -28,9 +28,6 @@ jobs:
         run: |
           make lint
           make test
-        env:
-          DATABASE_URL: ${{ vars.DATABASE_URL }}
-          SECRET_KEY: ${{ vars.SECRET_KEY }}
 
       - name: Test coverage
         uses: paambaati/codeclimate-action@v5.0.0
