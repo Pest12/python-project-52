@@ -12,7 +12,7 @@ class TasksFilter(django_filters.FilterSet):
         if value:
             return queryset.filter(author=self.request.user)
         return queryset
-    
+
     status = django_filters.ModelChoiceFilter(
         queryset=Statuses.objects.all(),
         label=_('Status'),
@@ -23,7 +23,7 @@ class TasksFilter(django_filters.FilterSet):
         label=_('Executor'),
         widget=forms.Select(attrs={'class': 'form-select'}),
     )
-    
+
     labels = django_filters.ModelChoiceFilter(
         field_name="labels",
         queryset=Labels.objects.all(),
