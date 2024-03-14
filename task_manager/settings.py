@@ -86,19 +86,16 @@ WSGI_APPLICATION = 'task_manager.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
-DATABASE_URL = os.getenv('DATABASE_URL')
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    },
-    'postgres': dj_database_url.config(
-        default=DATABASE_URL,
-        conn_max_age=1800,
-    )
+    "default": {
+        "ENGINE": "django.db.backends.sqlite3",
+        "NAME": BASE_DIR / "db.sqlite3",
+    }
 }
 
+my_db = dj_database_url.config(conn_max_age=600)
+DATABASES["default"].update(my_db)
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators

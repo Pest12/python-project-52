@@ -30,7 +30,7 @@
     </thead>
 
     <tbody>
-      {% for task in filter.qs %}
+      {% for task in tasks %}
         <tr>
           <td>{{ task.id }}</td>
           <td><a href="{% url 'show_task' task.id %}">{{ task.name }}</a></td>

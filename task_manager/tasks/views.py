@@ -25,6 +25,7 @@ class IndexView(LoginRequiredMixin, FilterView):
     model = Tasks
     filterset_class = TasksFilter
     template_name = 'tasks/index.html'
+    context_object_name = 'tasks'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
