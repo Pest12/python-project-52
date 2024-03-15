@@ -80,6 +80,10 @@ msgstr "Автор"
 msgid "Executor"
 msgstr "Исполнитель"
 
+#: tasks/filters.py:30
+msgid "Label"
+msgstr "Метка"
+
 #: tasks/models.py:31 templates/labels/index.html:5
 #: templates/navigation.html:20 templates/tasks/show.html:32
 msgid "Labels"
