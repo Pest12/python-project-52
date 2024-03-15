@@ -31,10 +31,8 @@ class TasksFilter(django_filters.FilterSet):
         widget=forms.Select(attrs={'class': 'form-select'}),
     )
     self_tasks = django_filters.BooleanFilter(
-        field_name="author",
-        label='',
+        label=_("Only your own tasks"),
         method="filter_user_tasks",
-        help_text=_("Only your own tasks"),
         widget=forms.CheckboxInput,
     )
 
