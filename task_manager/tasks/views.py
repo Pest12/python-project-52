@@ -1,5 +1,4 @@
 from django.contrib import messages
-from django.contrib.auth.mixins import UserPassesTestMixin
 from django.contrib.messages.views import SuccessMessageMixin
 from django.views.generic import CreateView, UpdateView, DeleteView
 from django.utils.translation import gettext_lazy as _
@@ -10,15 +9,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic.detail import DetailView
 from .filters import TasksFilter
 from django_filters.views import FilterView
-
-
-class IsAuthorTask(UserPassesTestMixin):
-    index_url = reverse_lazy('index_tasks')
-    error_message = _('Only the author of the task can delete it.')
-
-    def test_func(self):
-        task = self.get_object()
-        return self.request.user == task.author
+from task_manager.mixins import AuthorDeletionMixin
 
 
 class IndexView(LoginRequiredMixin, FilterView):
@@ -36,9 +27,13 @@ class IndexView(LoginRequiredMixin, FilterView):
 class CreateTask(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     model = Tasks
     form_class = CreateTasksForm
-    template_name = 'tasks/create.html'
+    template_name = 'create.html'
     success_url = reverse_lazy('index_tasks')
     success_message = _('The task has been successfully created')
+    extra_context = {
+        'title': _("Create a task"),
+        'button_text': _("Create")
+    }
 
     def form_valid(self, form):
         form.instance.author = self.request.user
@@ -48,19 +43,29 @@ class CreateTask(LoginRequiredMixin, SuccessMessageMixin, CreateView):
 class UpdateTask(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     model = Tasks
     form_class = CreateTasksForm
-    template_name = 'tasks/update.html'
+    template_name = 'update.html'
     success_url = reverse_lazy('index_tasks')
     success_message = _('The task has been successfully changed')
+    extra_context = {
+        'title': _("Changing the task"),
+        'button_text': _("Change")
+    }
 
 
 class DeleteTask(LoginRequiredMixin,
+                 AuthorDeletionMixin,
                  SuccessMessageMixin,
-                 IsAuthorTask,
                  DeleteView):
     model = Tasks
-    template_name = 'tasks/delete.html'
+    template_name = 'delete.html'
     success_url = reverse_lazy('index_tasks')
     success_message = _('The task was successfully deleted')
+    permission_denied_message = _('Only the author of the task can delete it.')
+    permission_denied_url = reverse_lazy('index_tasks')
+    extra_context = {
+        'title': _("Deleting a task"),
+        'button_text': _("Yes, delete")
+    }
 
 
 class ShowTask(LoginRequiredMixin, DetailView):

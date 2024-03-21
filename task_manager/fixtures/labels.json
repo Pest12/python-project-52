@@ -1,0 +1,26 @@
+[
+    {
+        "model": "labels.labels",
+        "pk": 1,
+        "fields": {
+            "name": "first label",
+            "timestamp": "2024-03-20T12:46:04.171Z"
+        }
+    },
+    {
+        "model": "labels.labels",
+        "pk": 2,
+        "fields": {
+            "name": "second label",
+            "timestamp": "2024-03-20T12:47:04.171Z"
+        }
+    },
+    {
+        "model": "labels.labels",
+        "pk": 3,
+        "fields": {
+            "name": "third label",
+            "timestamp": "2024-03-20T12:48:04.171Z"
+        }
+    }
+]

@@ -24,26 +24,38 @@ class IndexView(LoginRequiredMixin, ListView):
 
 class CreateLabel(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     form_class = CreateLabelsForm
-    template_name = 'labels/create.html'
+    template_name = 'create.html'
     success_url = reverse_lazy('index_labels')
     success_message = _('The label was created successfully')
+    extra_context = {
+        'title': _("Create a label"),
+        'button_text': _("Create")
+    }
 
 
 class UpdateLabel(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     model = Labels
     form_class = CreateLabelsForm
-    template_name = 'labels/update.html'
+    template_name = 'update.html'
     success_url = reverse_lazy('index_labels')
     success_message = _('The label has been successfully changed')
+    extra_context = {
+        'title': _("Changing the label"),
+        'button_text': _("Change")
+    }
 
 
 class DeleteLabel(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
     model = Labels
-    template_name = 'labels/delete.html'
+    template_name = 'delete.html'
     success_url = reverse_lazy('index_labels')
     success_message = _('The label was successfully deleted')
     error_del_message = _('It is not possible to delete a'
                           'label because it is being used')
+    extra_context = {
+        'title': _("Deleting a label"),
+        'button_text': _("Yes, delete")
+    }
 
     def post(self, request, *args, **kwargs):
         try:

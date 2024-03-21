@@ -1,0 +1,56 @@
+[
+    {
+        "model": "users.users",
+        "pk": 1,
+        "fields": {
+            "date_joined": "2024-03-20T12:03:08.239Z",
+            "email": "",
+            "first_name": "Костя",
+            "groups": [],
+            "is_active": true,
+            "is_staff": false,
+            "is_superuser": false,
+            "last_login": "2024-03-20T12:03:16.062Z",
+            "last_name": "Луговских",
+            "password": "pbkdf2_sha256$720000$MFU0rcLrWzgAG1BzeCzlky$IEyr3Je0ibwzm2rwF5sbB5rlFCCRuJhoYHiPuW2rU10=",
+            "user_permissions": [],
+            "username": "Kostya"
+        }
+    },
+    {
+        "model": "users.users",
+        "pk": 2,
+        "fields": {
+            "date_joined": "2024-03-21T08:04:11.168Z",
+            "email": "",
+            "first_name": "Константин",
+            "groups": [],
+            "is_active": true,
+            "is_staff": false,
+            "is_superuser": false,
+            "last_login": null,
+            "last_name": "Луг",
+            "password": "pbkdf2_sha256$720000$VvGMMDPXOd67oZBAX7Y30h$ND0liJorpVjwRZ1u2aOXmBd6qC4cbZQHGATc8/T0P74=",
+            "user_permissions": [],
+            "username": "Lugov"
+        }
+    },
+    {
+        "model": "users.users",
+        "pk": 3,
+        "fields": {
+            "date_joined": "2024-03-21T08:04:31.169Z",
+            "email": "",
+            "first_name": "Имя",
+            "groups": [],
+            "is_active": true,
+            "is_staff": false,
+            "is_superuser": false,
+            "last_login": null,
+            "last_name": "Фамилия",
+            "password": "pbkdf2_sha256$720000$AhvVH9r2093FENW85Rfazq$0+WimwD3kVb/OZlTKlh4Te4zwnt5QHFo4H2nJ5nC3AM=",
+            "user_permissions": [],
+            "username": "nickname"
+        }
+    }
+]

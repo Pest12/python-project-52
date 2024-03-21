@@ -1,36 +1,30 @@
 from django.test import TestCase
 from django.urls import reverse
-from django.contrib.auth import get_user_model
+from task_manager.users.models import Users
 from .models import Labels
 
 
-class CRUD_Labels_Test(TestCase):
+class LabelTest(TestCase):
+    fixtures = ['labels.json', 'users.json']
 
-    @classmethod
-    def setUpTestData(cls):
-        user_model = get_user_model()
-        cls.user1 = user_model.objects.create_user(
-            first_name='Konstantin',
-            last_name='Lugovskikh',
-            username='Kostya11',
-            password='Kostya'
-        )
-        Labels.objects.create(name='Label1')
-        Labels.objects.create(name='Label2')
+    def test_list_labels(self):
+        response = self.client.get(reverse('index_labels'))
+        self.assertEqual(response.status_code, 302)
 
-    def test_IndexLabels(self):
-        self.client.login(username='Kostya11', password='Kostya')
+        user = Users.objects.all().first()
+        self.client.force_login(user=user)
         response = self.client.get(reverse('index_labels'))
         self.assertEqual(response.status_code, 200)
 
-    def test_CreateLabel(self):
+    def test_create_label(self):
         response = self.client.get(reverse('create_label'))
         self.assertEqual(response.status_code, 302)
 
-        self.client.login(username='Kostya11', password='Kostya')
+        user = Users.objects.all().first()
+        self.client.force_login(user=user)
         response = self.client.get(reverse('create_label'))
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, template_name='labels/create.html')
+        self.assertEqual(Labels.objects.all().count(), 3)
 
         response = self.client.post(
             reverse('create_label'),
@@ -40,16 +34,16 @@ class CRUD_Labels_Test(TestCase):
         )
         self.assertRedirects(response, reverse('index_labels'), 302, 200)
 
-    def test_UpdateLabel(self):
-        label = Labels.objects.get(id=1)
-        response = self.client.get(f'/labels/{label.id}/update/')
+    def test_update_label(self):
+        response = self.client.get(reverse('update_label', kwargs={'pk': 1}))
         self.assertEqual(response.status_code, 302)
 
-        self.client.login(username='Kostya11', password='Kostya')
-        response = self.client.get(f'/labels/{label.id}/update/')
+        user = Users.objects.all().first()
+        self.client.force_login(user=user)
+        response = self.client.get(reverse('update_label', kwargs={'pk': 1}))
         self.assertEqual(response.status_code, 200)
         response_redirect = self.client.post(
-            f'/labels/{label.id}/update/',
+            reverse('update_label', kwargs={'pk': 1}),
             {
                 'name': 'updated label',
             }
@@ -58,16 +52,18 @@ class CRUD_Labels_Test(TestCase):
             response_redirect, reverse('index_labels'), 302, 200
         )
 
-    def test_DeleteLabel(self):
-        label = Labels.objects.get(id=2)
-        response = self.client.get(f'/labels/{label.id}/delete/')
+    def test_delete_label(self):
+        response = self.client.get(reverse('delete_label', kwargs={'pk': 2}))
         self.assertEqual(response.status_code, 302)
 
-        self.client.login(username='Kostya11', password='Kostya')
-        response = self.client.get(f'/labels/{label.id}/delete/')
+        user = Users.objects.all().first()
+        self.client.force_login(user=user)
+        response = self.client.get(reverse('delete_label', kwargs={'pk': 2}))
         self.assertEqual(response.status_code, 200)
 
-        response_redirect = self.client.post(f'/labels/{label.id}/delete/')
+        response_redirect = self.client.post(
+            reverse('delete_label', kwargs={'pk': 2})
+        )
         self.assertRedirects(
             response_redirect, reverse('index_labels'), 302, 200
         )

@@ -1,0 +1,26 @@
+[
+    {
+        "model": "statuses.statuses",
+        "pk": 1,
+        "fields": {
+            "name": "first status",
+            "timestamp": "2024-03-20T12:37:40.642Z"
+        }
+    },
+    {
+        "model": "statuses.statuses",
+        "pk": 2,
+        "fields": {
+            "name": "second status",
+            "timestamp": "2024-03-20T12:38:40.642Z"
+        }
+    },
+    {
+        "model": "statuses.statuses",
+        "pk": 3,
+        "fields": {
+            "name": "third status",
+            "timestamp": "2024-03-20T12:39:40.642Z"
+        }
+    }
+]

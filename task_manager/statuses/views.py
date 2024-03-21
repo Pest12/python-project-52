@@ -24,26 +24,38 @@ class IndexView(LoginRequiredMixin, ListView):
 
 class CreateStatus(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     form_class = CreateStatusForm
-    template_name = 'statuses/create.html'
+    template_name = 'create.html'
     success_url = reverse_lazy('index_statuses')
     success_message = _('The status has been successfully created')
+    extra_context = {
+        'title': _("Create a status"),
+        'button_text': _("Create")
+    }
 
 
 class UpdateStatus(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     model = Statuses
     form_class = CreateStatusForm
-    template_name = 'statuses/update.html'
+    template_name = 'update.html'
     success_url = reverse_lazy('index_statuses')
     success_message = _('The status has been successfully changed')
+    extra_context = {
+        'title': _("Status change"),
+        'button_text': _("Change")
+    }
 
 
 class DeleteStatus(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
     model = Statuses
-    template_name = 'statuses/delete.html'
+    template_name = 'delete.html'
     success_url = reverse_lazy('index_statuses')
     success_message = _('The status has been successfully deleted')
     error_del_message = _('It is not possible to delete the '
                           'status because it is in use')
+    extra_context = {
+        'title': _("Deleting a status"),
+        'button_text': _("Yes, delete")
+    }
 
     def post(self, request, *args, **kwargs):
         try:

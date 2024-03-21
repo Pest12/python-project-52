@@ -5,7 +5,7 @@ from django.contrib import messages
 from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib.messages.views import SuccessMessageMixin
 from django.urls import reverse_lazy
-from .forms import LoginUserForm
+from django.contrib.auth.forms import AuthenticationForm
 
 
 class IndexView(View):
@@ -18,7 +18,7 @@ class IndexView(View):
 
 
 class LoginUser(SuccessMessageMixin, LoginView):
-    form_class = LoginUserForm
+    form_class = AuthenticationForm
     template_name = 'login.html'
     success_url = reverse_lazy('index')
     success_message = _('You are logged in')

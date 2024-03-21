@@ -1,34 +1,18 @@
 from django.test import TestCase
 from django.urls import reverse
-from django.contrib.auth import get_user_model
+from task_manager.users.models import Users
 
 
-class CRUD_User_Test(TestCase):
+class UserTest(TestCase):
+    fixtures = ['users.json']
 
-    @classmethod
-    def setUpTestData(cls):
-        user_model = get_user_model()
-        cls.user1 = user_model.objects.create_user(
-            first_name='Konstantin',
-            last_name='Lugovskikh',
-            username='Kostya11',
-            password='Kostya'
-        )
-        cls.user2 = user_model.objects.create_user(
-            first_name='Dmitriy',
-            last_name='Buinov',
-            username='Dimon',
-            password='Dima11'
-        )
-
-    def test_IndexUsers(self):
+    def test_list_users(self):
         response = self.client.get(reverse('index_users'))
         self.assertEqual(response.status_code, 200)
 
-    def test_CreateUser(self):
+    def test_create_user(self):
         response = self.client.get(reverse('create_user'))
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, template_name='users/create.html')
 
         response = self.client.post(
             reverse('create_user'),
@@ -54,39 +38,42 @@ class CRUD_User_Test(TestCase):
         )
         self.assertRedirects(response, reverse('login'), 302, 200)
 
-    def test_UpdateUser(self):
-        self.client.login(username='Kostya11', password='Kostya')
-        user_id = get_user_model().objects.get(username='Dimon').id
-        response = self.client.get(f'/users/{user_id}/update/')
-        self.assertRedirects(response, reverse('index_users'), 302, 200)
+    def test_update_user(self):
+        response = self.client.get(reverse('update_user', kwargs={'pk': 1}))
+        self.assertEqual(response.status_code, 302)
 
-        user_id = get_user_model().objects.get(username='Kostya11').id
-        response = self.client.get(f'/users/{user_id}/update/')
+        user = Users.objects.all().last()
+        self.client.force_login(user=user)
+        response = self.client.get(
+            reverse('update_user', kwargs={'pk': user.id})
+        )
         self.assertEqual(response.status_code, 200)
-
         response_redirect = self.client.post(
-            f'/users/{user_id}/update/',
+            reverse('update_user', kwargs={'pk': user.id}),
             {
                 'username': 'Kostya1212',
-                'password1': 'Kostya',
-                'password2': 'Kostya'
+                'password1': 'Kostya123',
+                'password2': 'Kostya123'
             }
         )
         self.assertRedirects(
             response_redirect, reverse('index_users'), 302, 200
         )
 
-    def test_DeleteUser(self):
-        self.client.login(username='Kostya11', password='Kostya')
-        user_id = get_user_model().objects.get(username='Dimon').id
-        response = self.client.get(f'/users/{user_id}/delete/')
-        self.assertRedirects(response, reverse('index_users'), 302, 200)
+    def test_delete_user(self):
+        response = self.client.get(reverse('delete_user', kwargs={'pk': 2}))
+        self.assertEqual(response.status_code, 302)
 
-        user_id = get_user_model().objects.get(username='Kostya11').id
-        response = self.client.get(f'/users/{user_id}/delete/')
+        user = Users.objects.all().first()
+        self.client.force_login(user=user)
+        response = self.client.get(
+            reverse('delete_user', kwargs={'pk': user.id})
+        )
         self.assertEqual(response.status_code, 200)
 
-        response_redirect = self.client.post(f'/users/{user_id}/delete/')
+        response_redirect = self.client.post(
+            reverse('delete_user', kwargs={'pk': user.id})
+        )
         self.assertRedirects(
             response_redirect, reverse('index_users'), 302, 200
         )

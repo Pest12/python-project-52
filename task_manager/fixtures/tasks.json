@@ -1,0 +1,45 @@
+[
+    {
+        "model": "tasks.tasks",
+        "pk": 1,
+        "fields": {
+            "name": "first task",
+            "description": "this is first task",
+            "executor": 1,
+            "author": 1,
+            "status": 1,
+            "timestamp": "2024-03-20T12:50:16.309Z",
+            "labels": [
+                3
+            ]
+        }
+    },
+    {
+        "model": "tasks.tasks",
+        "pk": 2,
+        "fields": {
+            "name": "second task",
+            "description": "this is second task",
+            "executor": 2,
+            "author": 2,
+            "status": 2,
+            "timestamp": "2024-03-20T12:52:16.309Z",
+            "labels": [
+                2
+            ]
+        }
+    },
+    {
+        "model": "tasks.tasks",
+        "pk": 3,
+        "fields": {
+            "name": "third task",
+            "description": "this is third task",
+            "executor": 3,
+            "author": 2,
+            "status": 3,
+            "timestamp": "2024-03-20T12:53:16.309Z",
+            "labels": [3,2]
+        }
+    }
+]
