@@ -19,7 +19,7 @@
         <tr>
           <td>{{ label.id }}</td>
           <td>{{ label.name }}</td>
-          <td>{{ label.timestamp }}</td>
+          <td>{{ label.created_at }}</td>
           <td>
             <a href="{% url 'update_label' label.id %}">{% translate "Change" %}</a>
             <br>

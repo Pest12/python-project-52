@@ -1,6 +1,4 @@
-from django.shortcuts import redirect
 from django.contrib import messages
-from django.db.models.deletion import ProtectedError
 from django.contrib.messages.views import SuccessMessageMixin
 from django.views.generic import CreateView, UpdateView, DeleteView
 from django.views.generic.list import ListView
@@ -8,10 +6,10 @@ from django.utils.translation import gettext_lazy as _
 from django.urls import reverse_lazy
 from .forms import CreateLabelsForm
 from .models import Labels
-from django.contrib.auth.mixins import LoginRequiredMixin
+from task_manager.mixins import DeleteProtectionMixin, AuthRequiredMixin
 
 
-class IndexView(LoginRequiredMixin, ListView):
+class IndexView(AuthRequiredMixin, ListView):
     model = Labels
     template_name = 'labels/index.html'
     context_object_name = 'labels'
@@ -22,7 +20,7 @@ class IndexView(LoginRequiredMixin, ListView):
         return context
 
 
-class CreateLabel(LoginRequiredMixin, SuccessMessageMixin, CreateView):
+class CreateLabel(AuthRequiredMixin, SuccessMessageMixin, CreateView):
     form_class = CreateLabelsForm
     template_name = 'create.html'
     success_url = reverse_lazy('index_labels')
@@ -33,7 +31,7 @@ class CreateLabel(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     }
 
 
-class UpdateLabel(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
+class UpdateLabel(AuthRequiredMixin, SuccessMessageMixin, UpdateView):
     model = Labels
     form_class = CreateLabelsForm
     template_name = 'update.html'
@@ -45,24 +43,18 @@ class UpdateLabel(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     }
 
 
-class DeleteLabel(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
+class DeleteLabel(AuthRequiredMixin,
+                  SuccessMessageMixin,
+                  DeleteProtectionMixin,
+                  DeleteView):
     model = Labels
     template_name = 'delete.html'
     success_url = reverse_lazy('index_labels')
     success_message = _('The label was successfully deleted')
-    error_del_message = _('It is not possible to delete a'
+    protected_message = _('It is not possible to delete a '
                           'label because it is being used')
+    protected_url = reverse_lazy('index_labels')
     extra_context = {
         'title': _("Deleting a label"),
         'button_text': _("Yes, delete")
     }
-
-    def post(self, request, *args, **kwargs):
-        try:
-            return super().post(request, *args, **kwargs)
-        except ProtectedError:
-            messages.add_message(
-                request, messages.ERROR,
-                self.error_del_message
-            )
-            return redirect(reverse_lazy('index_labels'))

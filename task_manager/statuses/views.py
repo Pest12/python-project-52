@@ -1,6 +1,4 @@
-from django.shortcuts import redirect
 from django.contrib import messages
-from django.db.models.deletion import ProtectedError
 from django.contrib.messages.views import SuccessMessageMixin
 from django.views.generic import CreateView, UpdateView, DeleteView
 from django.views.generic.list import ListView
@@ -8,10 +6,10 @@ from django.utils.translation import gettext_lazy as _
 from django.urls import reverse_lazy
 from .forms import CreateStatusForm
 from .models import Statuses
-from django.contrib.auth.mixins import LoginRequiredMixin
+from task_manager.mixins import DeleteProtectionMixin, AuthRequiredMixin
 
 
-class IndexView(LoginRequiredMixin, ListView):
+class IndexView(AuthRequiredMixin, ListView):
     model = Statuses
     template_name = 'statuses/index.html'
     context_object_name = 'statuses'
@@ -22,7 +20,7 @@ class IndexView(LoginRequiredMixin, ListView):
         return context
 
 
-class CreateStatus(LoginRequiredMixin, SuccessMessageMixin, CreateView):
+class CreateStatus(AuthRequiredMixin, SuccessMessageMixin, CreateView):
     form_class = CreateStatusForm
     template_name = 'create.html'
     success_url = reverse_lazy('index_statuses')
@@ -33,7 +31,7 @@ class CreateStatus(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     }
 
 
-class UpdateStatus(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
+class UpdateStatus(AuthRequiredMixin, SuccessMessageMixin, UpdateView):
     model = Statuses
     form_class = CreateStatusForm
     template_name = 'update.html'
@@ -45,24 +43,18 @@ class UpdateStatus(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     }
 
 
-class DeleteStatus(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
+class DeleteStatus(AuthRequiredMixin,
+                   SuccessMessageMixin,
+                   DeleteProtectionMixin,
+                   DeleteView):
     model = Statuses
     template_name = 'delete.html'
     success_url = reverse_lazy('index_statuses')
     success_message = _('The status has been successfully deleted')
-    error_del_message = _('It is not possible to delete the '
+    protected_message = _('It is not possible to delete the '
                           'status because it is in use')
+    protected_url = reverse_lazy('index_statuses')
     extra_context = {
         'title': _("Deleting a status"),
         'button_text': _("Yes, delete")
     }
-
-    def post(self, request, *args, **kwargs):
-        try:
-            return super().post(request, *args, **kwargs)
-        except ProtectedError:
-            messages.add_message(
-                request, messages.ERROR,
-                self.error_del_message
-            )
-            return redirect(reverse_lazy('index_statuses'))

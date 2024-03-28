@@ -1,0 +1,46 @@
+{
+    "tasks": {
+      "new_task": {
+        "name": "Test task",
+        "description": "Test",
+        "status": 1,
+        "executor": 3
+      },
+      "update_task": {
+        "name": "Test update task",
+        "description": "Test update"
+      }
+    },
+    "statuses": {
+      "new_status": {
+        "name": "Test status"
+      },
+      "updated_status": {
+        "name": "Test update status"
+      }
+    },
+    "labels": {
+      "new_label": {
+        "name": "Test label"
+      },
+      "updated_label": {
+        "name": "Test update label"
+      }
+    },
+    "users": {
+      "new_user": {
+        "first_name": "Kostya",
+        "last_name": "Lugov",
+        "username": "Pest",
+        "password1": "qwertyu",
+        "password2": "qwertyu"
+      },
+      "updated_user": {
+        "first_name": "Kostya",
+        "last_name": "Lugov",
+        "username": "NePest",
+        "password1": "qwertyu",
+        "password2": "qwertyu"
+      }
+    }
+  }

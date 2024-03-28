@@ -5,14 +5,13 @@ from django.utils.translation import gettext_lazy as _
 from django.urls import reverse_lazy
 from .models import Tasks
 from .forms import CreateTasksForm
-from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic.detail import DetailView
 from .filters import TasksFilter
 from django_filters.views import FilterView
-from task_manager.mixins import AuthorDeletionMixin
+from task_manager.mixins import AuthorDeletionMixin, AuthRequiredMixin
 
 
-class IndexView(LoginRequiredMixin, FilterView):
+class IndexView(AuthRequiredMixin, FilterView):
     model = Tasks
     filterset_class = TasksFilter
     template_name = 'tasks/index.html'
@@ -24,7 +23,7 @@ class IndexView(LoginRequiredMixin, FilterView):
         return context
 
 
-class CreateTask(LoginRequiredMixin, SuccessMessageMixin, CreateView):
+class CreateTask(AuthRequiredMixin, SuccessMessageMixin, CreateView):
     model = Tasks
     form_class = CreateTasksForm
     template_name = 'create.html'
@@ -40,7 +39,7 @@ class CreateTask(LoginRequiredMixin, SuccessMessageMixin, CreateView):
         return super().form_valid(form)
 
 
-class UpdateTask(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
+class UpdateTask(AuthRequiredMixin, SuccessMessageMixin, UpdateView):
     model = Tasks
     form_class = CreateTasksForm
     template_name = 'update.html'
@@ -52,7 +51,7 @@ class UpdateTask(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     }
 
 
-class DeleteTask(LoginRequiredMixin,
+class DeleteTask(AuthRequiredMixin,
                  AuthorDeletionMixin,
                  SuccessMessageMixin,
                  DeleteView):
@@ -68,7 +67,7 @@ class DeleteTask(LoginRequiredMixin,
     }
 
 
-class ShowTask(LoginRequiredMixin, DetailView):
+class ShowTask(AuthRequiredMixin, DetailView):
     model = Tasks
     template_name = 'tasks/show.html'
     context_object_name = 'task'

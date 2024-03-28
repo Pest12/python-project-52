@@ -26,8 +26,8 @@ class Tasks(models.Model):
     labels = models.ManyToManyField(Labels, blank=True,
                                     related_name='labels',
                                     verbose_name=_('Labels'))
-    timestamp = models.DateTimeField(auto_now_add=True,
-                                     verbose_name=_('Date of creation'))
+    created_at = models.DateTimeField(auto_now_add=True,
+                                      verbose_name=_('Сreation date'))
 
     def __str__(self):
         return self.name

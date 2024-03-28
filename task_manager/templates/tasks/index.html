@@ -44,7 +44,7 @@
             <td></td>
           {% endif %}
 
-          <td>{{ task.timestamp }}</td>
+          <td>{{ task.created_at }}</td>
           <td>
             <a href="{% url 'update_task' task.id %}">{% translate "Change" %}</a>
             <br>
