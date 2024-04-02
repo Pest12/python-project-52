@@ -10,9 +10,6 @@ migrate:
 install:
 	poetry install
 
-build:
-	poetry build
-
 lint:
 	poetry run flake8 task_manager
 
@@ -29,3 +26,7 @@ PORT ?= 8000
 WEB_CONCURRENCY ?= 4
 start:
 	poetry run gunicorn -w $(WEB_CONCURRENCY) -b 0.0.0.0:$(PORT) task_manager.wsgi:application
+
+build:
+	make install
+	./build.sh
