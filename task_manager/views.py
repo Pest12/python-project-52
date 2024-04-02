@@ -9,7 +9,7 @@ from django.contrib.auth.forms import AuthenticationForm
 
 
 class IndexView(View):
-
+    """Root index view."""
     def get(self, request, *args, **kwargs):
         message = messages.get_messages(request)
         return render(request, 'index.html', context={
@@ -18,6 +18,7 @@ class IndexView(View):
 
 
 class LoginUser(SuccessMessageMixin, LoginView):
+    """User login page view."""
     form_class = AuthenticationForm
     template_name = 'login.html'
     success_url = reverse_lazy('index')
@@ -25,6 +26,7 @@ class LoginUser(SuccessMessageMixin, LoginView):
 
 
 class LogoutUser(LogoutView):
+    """User logout."""
     def dispatch(self, request, *args, **kwargs):
         if request.user.is_authenticated:
             messages.info(request, _("You are logged out."))

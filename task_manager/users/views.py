@@ -1,4 +1,3 @@
-from django.contrib import messages
 from django.contrib.messages.views import SuccessMessageMixin
 from django.views.generic import CreateView, UpdateView, DeleteView
 from django.views.generic.list import ListView
@@ -11,17 +10,14 @@ from task_manager.mixins import AuthRequiredMixin, UserPermissionMixin, \
 
 
 class IndexView(ListView):
+    """Users page view."""
     model = Users
     template_name = 'users/index.html'
     context_object_name = 'users'
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['messages'] = messages.get_messages(self.request)
-        return context
-
 
 class CreateUser(SuccessMessageMixin, CreateView):
+    """User create page view."""
     form_class = CreateUserForm
     template_name = 'create.html'
     success_url = reverse_lazy('login')
@@ -36,6 +32,7 @@ class UpdateUser(AuthRequiredMixin,
                  UserPermissionMixin,
                  SuccessMessageMixin,
                  UpdateView):
+    """User update page view."""
     model = Users
     form_class = CreateUserForm
     template_name = 'update.html'
@@ -54,6 +51,7 @@ class DeleteUser(AuthRequiredMixin,
                  DeleteProtectionMixin,
                  SuccessMessageMixin,
                  DeleteView):
+    """User delete page view."""
     model = Users
     template_name = 'delete.html'
     success_url = reverse_lazy('index_users')

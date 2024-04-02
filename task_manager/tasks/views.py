@@ -1,4 +1,3 @@
-from django.contrib import messages
 from django.contrib.messages.views import SuccessMessageMixin
 from django.views.generic import CreateView, UpdateView, DeleteView
 from django.utils.translation import gettext_lazy as _
@@ -12,18 +11,15 @@ from task_manager.mixins import AuthorDeletionMixin, AuthRequiredMixin
 
 
 class IndexView(AuthRequiredMixin, FilterView):
+    """Tasks page view."""
     model = Tasks
     filterset_class = TasksFilter
     template_name = 'tasks/index.html'
     context_object_name = 'tasks'
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['messages'] = messages.get_messages(self.request)
-        return context
-
 
 class CreateTask(AuthRequiredMixin, SuccessMessageMixin, CreateView):
+    """Task create page view."""
     model = Tasks
     form_class = CreateTasksForm
     template_name = 'create.html'
@@ -35,11 +31,13 @@ class CreateTask(AuthRequiredMixin, SuccessMessageMixin, CreateView):
     }
 
     def form_valid(self, form):
+        """Set current user as the task's author."""
         form.instance.author = self.request.user
         return super().form_valid(form)
 
 
 class UpdateTask(AuthRequiredMixin, SuccessMessageMixin, UpdateView):
+    """Task update page view."""
     model = Tasks
     form_class = CreateTasksForm
     template_name = 'update.html'
@@ -55,6 +53,7 @@ class DeleteTask(AuthRequiredMixin,
                  AuthorDeletionMixin,
                  SuccessMessageMixin,
                  DeleteView):
+    """Task delete page view."""
     model = Tasks
     template_name = 'delete.html'
     success_url = reverse_lazy('index_tasks')

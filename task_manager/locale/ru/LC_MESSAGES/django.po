@@ -290,3 +290,11 @@ msgstr "Вы залогинены"
 #: views.py:30
 msgid "You are logged out."
 msgstr "Вы разлогинены"
+
+#: users/forms.py:10
+msgid "First name"
+msgstr "Имя"
+
+#: users/forms.py:13
+msgid "Last name"
+msgstr "Фамилия"

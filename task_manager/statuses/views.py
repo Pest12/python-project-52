@@ -1,4 +1,3 @@
-from django.contrib import messages
 from django.contrib.messages.views import SuccessMessageMixin
 from django.views.generic import CreateView, UpdateView, DeleteView
 from django.views.generic.list import ListView
@@ -10,17 +9,14 @@ from task_manager.mixins import DeleteProtectionMixin, AuthRequiredMixin
 
 
 class IndexView(AuthRequiredMixin, ListView):
+    """Statuses page view."""
     model = Statuses
     template_name = 'statuses/index.html'
     context_object_name = 'statuses'
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['messages'] = messages.get_messages(self.request)
-        return context
-
 
 class CreateStatus(AuthRequiredMixin, SuccessMessageMixin, CreateView):
+    """Status create page view."""
     form_class = CreateStatusForm
     template_name = 'create.html'
     success_url = reverse_lazy('index_statuses')
@@ -32,6 +28,7 @@ class CreateStatus(AuthRequiredMixin, SuccessMessageMixin, CreateView):
 
 
 class UpdateStatus(AuthRequiredMixin, SuccessMessageMixin, UpdateView):
+    """Status update page view."""
     model = Statuses
     form_class = CreateStatusForm
     template_name = 'update.html'
@@ -47,6 +44,7 @@ class DeleteStatus(AuthRequiredMixin,
                    SuccessMessageMixin,
                    DeleteProtectionMixin,
                    DeleteView):
+    """Status delete page view."""
     model = Statuses
     template_name = 'delete.html'
     success_url = reverse_lazy('index_statuses')

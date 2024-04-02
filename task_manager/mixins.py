@@ -7,6 +7,7 @@ from django.urls import reverse_lazy
 
 
 class AuthRequiredMixin(LoginRequiredMixin):
+    '''Checking user registration.'''
     def dispatch(self, request, *args, **kwargs):
         if not request.user.is_authenticated:
             messages.add_message(
@@ -19,6 +20,7 @@ class AuthRequiredMixin(LoginRequiredMixin):
 
 
 class UserPermissionMixin(UserPassesTestMixin):
+    '''Checking user rights.'''
     permission_message = None
     permission_url = None
 
@@ -31,6 +33,7 @@ class UserPermissionMixin(UserPassesTestMixin):
 
 
 class DeleteProtectionMixin:
+    '''Protection against deletion.'''
     protected_message = None
     protected_url = None
 
@@ -38,13 +41,12 @@ class DeleteProtectionMixin:
         try:
             return super().post(request, *args, **kwargs)
         except ProtectedError:
-            messages.add_message(
-                request, messages.ERROR,
-                self.protected_message)
+            messages.error(request, self.protected_message)
             return redirect(self.protected_url)
 
 
 class AuthorDeletionMixin(UserPassesTestMixin):
+    '''The ability to delete only by the author.'''
     permission_denied_message = None
     permission_denied_url = None
 

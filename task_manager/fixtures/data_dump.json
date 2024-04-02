@@ -4,7 +4,8 @@
         "name": "Test task",
         "description": "Test",
         "status": 1,
-        "executor": 3
+        "executor": 3,
+        "labels": 1
       },
       "update_task": {
         "name": "Test update task",

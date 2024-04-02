@@ -8,7 +8,9 @@ from django.utils.translation import gettext as _
 
 
 class TasksFilter(django_filters.FilterSet):
+    """Set of filters for the Task model."""
     def filter_user_tasks(self, queryset, author, value):
+        """Return queryset of the user created tasks."""
         if value:
             return queryset.filter(author=self.request.user)
         return queryset
