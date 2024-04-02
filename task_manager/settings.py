@@ -29,7 +29,7 @@ SECRET_KEY = str(os.getenv("SECRET_KEY"))
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.getenv('DEBUG', False)
 
-ALLOWED_HOSTS = ['127.0.0.1', 'webserver', '*']
+ALLOWED_HOSTS = ['127.0.0.1', 'webserver', 'task-manager-app-hudw.onrender.com']
 
 
 # Application definition
