@@ -28,5 +28,4 @@ start:
 	poetry run gunicorn -w $(WEB_CONCURRENCY) -b 0.0.0.0:$(PORT) task_manager.wsgi:application
 
 build:
-	make install
 	./build.sh
