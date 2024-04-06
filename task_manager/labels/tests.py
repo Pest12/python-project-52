@@ -126,15 +126,15 @@ class LabelTest(TestCase):
             _('The task has been successfully created')
         )
 
-        # response_redirect = self.client.post(
-        #     reverse('delete_label', kwargs={'pk': self.label.id}),
-        #     follow=True
-        # )
-        # self.assertRedirects(
-        #     response_redirect, reverse('index_labels'),
-        #     HTTPStatus.FOUND.value, HTTPStatus.OK.value
-        # )
-        # self.assertContains(
-        #     response_redirect,
-        #     _('It is not possible to delete a label because it is being used')
-        # )
+        response_redirect = self.client.post(
+            reverse('delete_label', kwargs={'pk': self.label.id}),
+            follow=True
+        )
+        self.assertRedirects(
+            response_redirect, reverse('index_labels'),
+            HTTPStatus.FOUND.value, HTTPStatus.OK.value
+        )
+        self.assertContains(
+            response_redirect,
+            _('It is not possible to delete a label because it is being used')
+        )
