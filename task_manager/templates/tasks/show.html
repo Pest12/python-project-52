@@ -32,7 +32,7 @@
             <h6>{% translate "Labels" %}:</h6>
             <ul>
               {% for label in task.labels.all %}
-                <li>{{ label }}</li>
+                <li>{{ label.name }}</li>
               {% endfor %}
             </ul>
           </div>

@@ -36,7 +36,8 @@ class Tasks(models.Model):
                                     blank=True,
                                     null=True,
                                     through='TaskToLabel',
-                                    through_fields=('task', 'label'))
+                                    through_fields=('task', 'label'),
+                                    verbose_name=_('Labels'))
 
     def __str__(self):
         return self.name
