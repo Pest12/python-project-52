@@ -7,7 +7,7 @@ from .forms import CreateTasksForm
 from django.views.generic.detail import DetailView
 from .filters import TasksFilter
 from django_filters.views import FilterView
-from task_manager.mixins import AuthorDeletionMixin, AuthRequiredMixin
+from task_manager.mixins import OnlyAuthorDeletionMixin, AuthRequiredMixin
 
 
 class IndexView(AuthRequiredMixin, FilterView):
@@ -50,7 +50,7 @@ class UpdateTask(AuthRequiredMixin, SuccessMessageMixin, UpdateView):
 
 
 class DeleteTask(AuthRequiredMixin,
-                 AuthorDeletionMixin,
+                 OnlyAuthorDeletionMixin,
                  SuccessMessageMixin,
                  DeleteView):
     """Task delete page view."""

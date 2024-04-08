@@ -5,7 +5,7 @@ from django.utils.translation import gettext_lazy as _
 from django.urls import reverse_lazy
 from .forms import CreateUserForm
 from .models import Users
-from task_manager.mixins import AuthRequiredMixin, UserPermissionMixin, \
+from task_manager.mixins import AuthRequiredMixin, UserCanModifyMixin, \
     DeleteProtectionMixin
 
 
@@ -29,7 +29,7 @@ class CreateUser(SuccessMessageMixin, CreateView):
 
 
 class UpdateUser(AuthRequiredMixin,
-                 UserPermissionMixin,
+                 UserCanModifyMixin,
                  SuccessMessageMixin,
                  UpdateView):
     """User update page view."""
@@ -47,7 +47,7 @@ class UpdateUser(AuthRequiredMixin,
 
 
 class DeleteUser(AuthRequiredMixin,
-                 UserPermissionMixin,
+                 UserCanModifyMixin,
                  DeleteProtectionMixin,
                  SuccessMessageMixin,
                  DeleteView):

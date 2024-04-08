@@ -19,7 +19,7 @@ class AuthRequiredMixin(LoginRequiredMixin):
         return super().dispatch(request, *args, **kwargs)
 
 
-class UserPermissionMixin(UserPassesTestMixin):
+class UserCanModifyMixin(UserPassesTestMixin):
     '''Checking user rights.'''
     permission_message = None
     permission_url = None
@@ -45,7 +45,7 @@ class DeleteProtectionMixin:
             return redirect(self.protected_url)
 
 
-class AuthorDeletionMixin(UserPassesTestMixin):
+class OnlyAuthorDeletionMixin(UserPassesTestMixin):
     '''The ability to delete only by the author.'''
     permission_denied_message = None
     permission_denied_url = None
